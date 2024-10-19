@@ -20,16 +20,16 @@ public class Controller {
 
                     switch (choice2D) {
                         case 0:
-                            float radius = Float.parseFloat(PopUp.showInputMessage("Enter radius:"));
+                            float radius = checkPositiveValue("Enter radius:");
                             shape2D = new Circle(radius);
                             break;
                         case 1:
-                            float side = Float.parseFloat(PopUp.showInputMessage("Enter side length:"));
+                            float side = checkPositiveValue("Enter side length:");
                             shape2D = new Square(side);
                             break;
                         case 2:
-                            float width = Float.parseFloat(PopUp.showInputMessage("Enter width:"));
-                            float height = Float.parseFloat(PopUp.showInputMessage("Enter height:"));
+                            float width = checkPositiveValue("Enter width:");
+                            float height = checkPositiveValue("Enter height:");
                             shape2D = new Rectangle(width, height);
                             break;
                     }
@@ -47,17 +47,17 @@ public class Controller {
 
                     switch (choice3D) {
                         case 0:
-                            float radiusSphere = Float.parseFloat(PopUp.showInputMessage("Enter radius:"));
+                            float radiusSphere = checkPositiveValue("Enter radius:");
                             shape3D = new Sphere(radiusSphere);
                             break;
                         case 1:
-                            float sideCube = Float.parseFloat(PopUp.showInputMessage("Enter side length:"));
+                            float sideCube = checkPositiveValue("Enter side length:");
                             shape3D = new Cube(sideCube);
                             break;
                         case 2:
-                            float length = Float.parseFloat(PopUp.showInputMessage("Enter length:"));
-                            float widthCuboid = Float.parseFloat(PopUp.showInputMessage("Enter width:"));
-                            float heightCuboid = Float.parseFloat(PopUp.showInputMessage("Enter height:"));
+                            float length = checkPositiveValue("Enter length:");
+                            float widthCuboid = checkPositiveValue("Enter width:");
+                            float heightCuboid = checkPositiveValue("Enter height:");
                             shape3D = new Cuboid(length, widthCuboid, heightCuboid);
                             break;
                     }
@@ -98,5 +98,16 @@ public class Controller {
                     .collect(Collectors.joining("\n"));
             PopUp.showMessage(shapesJson);
         }
+    }
+
+    private static float checkPositiveValue(String message) {
+        float value;
+        do {
+            value = Float.parseFloat(PopUp.showInputMessage(message));
+            if (value < 0) {
+                PopUp.showMessage("Value must be greater than or equal to 0. Please try again.");
+            }
+        } while (value < 0);
+        return value;
     }
 }
